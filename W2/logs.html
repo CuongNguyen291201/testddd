@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+    integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="stylesheet" href="./css/logs.css">
+</head>
+<body>
+  <div id="logs">
+    <div class="side-bar">
+      <div class="logo item-side-bar">
+        <i class="fa-solid fa-house"></i>
+        <div class="content-side-bar">device manager</div>
+      </div>
+      <div class="item-side-bar">
+        <i class="fa-solid fa-computer"></i>
+        <div class="content-side-bar"><a href="./dashboard.html">dashboard</a></div>
+      </div>
+
+      <div class="item-side-bar">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <div class="content-side-bar"><a href="./logs.html">logs</a></div>
+      </div>
+
+      <div class="item-side-bar">
+        <i class="fa-solid fa-gear"></i>
+        <div class="content-side-bar">settings</div>
+      </div>
+      
+      <div class="item-side-bar">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <div class="content-side-bar" id="logout">logout</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="user">
+        <i class="fa-solid fa-circle-user"></i>
+        <div>Welcome John</div>
+      </div>
+
+      <div class="data">
+        <div class="action">
+          <div class="title-table">Action Logs</div>
+          <div class="search">
+            <input type="text" placeholder="name" class="input-form-item" id="key-search" />
+            <div class="search-device">Search</div>
+          </div>
+        </div>
+
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Device ID</th>
+                <th>Name</th>
+                <th>Action</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody class="table-data">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script type="text/javascript" src="./js/logs.js"></script>
+</html>
