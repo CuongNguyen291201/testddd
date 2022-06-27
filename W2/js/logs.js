@@ -62,6 +62,15 @@ $(document).ready(() => {
     },
   ]
 
+  let rowData = 3;
+
+  $("select").on("change", function () {
+    rowData = this.value;
+    showData(sliceData(dtLogs, 1, rowData));
+    showPagination(dtLogs);
+    getDataByPage(dtLogs);
+  })
+
   const calculateRange = (data, rowsPerPage) => {
     const range = [];
     const num = Math.ceil(data.length / rowsPerPage);
@@ -71,20 +80,19 @@ $(document).ready(() => {
     }
     return range;
   };
-
   const sliceData = (data, page, rowsPerPage) => {
     return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
   };
-  
+
   if (!localStorage.getItem("user-bss")) {
-    window.location.href = "/login.html";
+    window.location.href = "/";
   }
 
   $("#logout").click(() => {
     localStorage.removeItem("user-bss");
-    window.location.href = "/login.html";
+    window.location.href = "/";
   })
-  
+
   const showData = (data) => {
     $(".table-data").empty();
     let totalDevices = data.reduce((prev, current) => prev + current.power, 0);
@@ -101,16 +109,15 @@ $(document).ready(() => {
       )
     ));
   }
-  
-  showData(sliceData(dtLogs, 1, 3));
+  showData(sliceData(dtLogs, 1, rowData));
 
   let keySearch = $("#key-search");
   $(".search-device").click(() => {
     let key = keySearch.val().toLowerCase();
     let dtLogsFilter = dtLogs.filter(item => item.name.toLowerCase().includes(key));
-    showData(sliceData(dtLogsFilter, 1, 3));
+    showData(sliceData(dtLogsFilter, 1, rowData));
     if (key !== "") {
-      showPagination(sliceData(dtLogsFilter, 1, 3));
+      showPagination(sliceData(dtLogsFilter, 1, rowData));
     } else {
       showPagination(dtLogs);
     }
@@ -119,25 +126,23 @@ $(document).ready(() => {
 
   const showPagination = (data) => {
     $(".pagination").empty();
-    calculateRange(data, 3).map(item => (
+    calculateRange(data, rowData).map(item => (
       $(".pagination").append(
         `
-          <div id="page-${item}">${item}</div>
+          <div class="pagination-item" id="page-${item}">${item}</div>
         `
       )
     ));
   }
-
   showPagination(dtLogs);
 
-  calculateRange(dtLogs, 3).map(item => (
-    $(`#page-${item}`).click(() => {
-      let newData = sliceData(dtLogs, item, 3)
-      showData(newData);
-    })
-  ));
+  const getDataByPage = (data) => {
+    calculateRange(data, rowData).map(item => (
+      $(`#page-${item}`).click(() => {
+        showData(sliceData(data, item, rowData));
+      })
+    ));
+  } 
 
-
-
-
+  getDataByPage(dtLogs);
 })

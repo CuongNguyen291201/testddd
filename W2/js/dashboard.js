@@ -24,12 +24,12 @@ $(document).ready(() => {
   ];
 
   if (!localStorage.getItem("user-bss")) {
-    window.location.href = "/login.html";
+    window.location.href = "/";
   }
 
-  $("#logout").click(() => {
+  $(".logout").click(() => {
     localStorage.removeItem("user-bss");
-    window.location.href = "/login.html";
+    window.location.href = "/";
   })
 
   let dtDevicesReal = JSON.parse(localStorage.getItem("data-db"));
@@ -64,6 +64,7 @@ $(document).ready(() => {
   showData(devicesJSON);
 
   const showChart = () => {
+    // $("#statistic").empty();
     let lb = [];
     $(".devices").map(item => lb = [...lb, $(".devices")[item].innerText]);
     let dts = [];
@@ -82,7 +83,7 @@ $(document).ready(() => {
       }]
     };
 
-    const myChart = new Chart($("#statistic"), {
+    new Chart($("#statistic"), {
       type: 'doughnut',
       data: data
     });
@@ -95,7 +96,9 @@ $(document).ready(() => {
     let power = $("#power");
 
     if (nameDevice.val() === "" || ipDevice.val() === "" || power.val() === "") {
-      alert("kkk")
+      $(".error-msg").text("Bạn hãy nhập đầy đủ các trường!!!");
+    } else if (isNaN(power.val())) {
+      $(".error-msg").text("Power phải là số!!!");
     } else {
       let newDevice = {
         "devices": nameDevice.val(),
@@ -113,6 +116,8 @@ $(document).ready(() => {
       nameDevice.val("");
       ipDevice.val("");
       power.val("");
+      $(".error-msg").text("");
+      location.reload()
     }
   })
 })
